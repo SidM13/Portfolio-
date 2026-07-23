@@ -113,6 +113,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const certificationHeading = [...document.querySelectorAll("#education h3")].find(
+    (heading) => heading.textContent.trim() === "Professional credentials"
+  );
+  const certificationBox = certificationHeading?.closest(".h-full");
+  const certificationList = certificationBox?.querySelector("ul");
+  if (certificationBox && certificationList) {
+    certificationBox.style.height = "fit-content";
+    certificationBox.style.alignSelf = "start";
+    const googleAiCertification = document.createElement("li");
+    googleAiCertification.className = "flex items-start gap-3 text-sm text-surface/80 border-l-2 border-brand-teal/50 pl-3";
+    googleAiCertification.textContent = "Google AI";
+    certificationList.appendChild(googleAiCertification);
+  }
+
   const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
   const desktopNav = document.querySelector("header nav");
   if (menuButton && desktopNav) {
