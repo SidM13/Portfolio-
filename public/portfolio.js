@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.head.appendChild(redesignStyles);
   const educationStyles = document.createElement("link");
   educationStyles.rel = "stylesheet";
-  educationStyles.href = `${siteBase}/education-redesign.css?v=20260722-1`;
+  educationStyles.href = `${siteBase}/education-redesign.css?v=20260722-2`;
   document.head.appendChild(educationStyles);
 
   document.querySelectorAll('[style*="opacity:0"]').forEach((element) => {
