@@ -1,8 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const siteBase = window.location.pathname.startsWith("/Portfolio-") ? "/Portfolio-" : "";
+  const redesignStyles = document.createElement("link");
+  redesignStyles.rel = "stylesheet";
+  redesignStyles.href = `${siteBase}/about-redesign.css`;
+  document.head.appendChild(redesignStyles);
+
   document.querySelectorAll('[style*="opacity:0"]').forEach((element) => {
     element.style.opacity = "1";
     element.style.transform = "none";
   });
+
+  const aboutSection = document.querySelector("#about");
+  if (aboutSection) {
+    const assetBase = `${siteBase}/assets`;
+    const credentials = [
+      "Certified Scrum Master (CSM)",
+      "Certified Scrum Product Owner (CSPO)",
+      "SAFe Agilist",
+      "ASQ Six Sigma",
+      "Stanford · AI for Business Models",
+    ];
+    aboutSection.className = "about-brief";
+    aboutSection.innerHTML = `
+      <div class="about-brief__inner">
+        <div class="about-brief__eyebrow">About</div>
+        <h2 class="about-brief__title">At the intersection of <span>audit &amp; operations</span><br>and <em>digital transformation</em>.</h2>
+        <div class="about-brief__rule"><span></span></div>
+
+        <div class="about-brief__body">
+          <p class="about-brief__bio">MBA candidate at NYIT Vancouver, with an M.S. in Project Management from Northeastern and a BBA from The NorthCap University. Five years across premium audit, delivery, and operations — including 500+ audits at EXL Service, an operational framework for ONGC, and project planning for Toshiba Water Solutions. Interests span consulting, audit, operations excellence, and AI-enabled transformation, informed by Stanford executive learning in AI and business models.</p>
+          <div class="about-brief__credentials">
+            <div class="about-brief__credentials-title">Credentials</div>
+            <div class="about-brief__credential-grid">
+              ${credentials.map((credential) => `<div class="about-brief__credential"><img src="${assetBase}/11cbe220267923c4.svg" alt=""><span>${credential}</span></div>`).join("")}
+            </div>
+          </div>
+        </div>
+
+        <div class="about-brief__pillars">
+          <article class="about-brief__pillar">
+            <div class="about-brief__icon"><img src="${assetBase}/03dc95de9e74058c.svg" alt=""></div>
+            <div><h3>Audit &amp; Assurance</h3><p>500+ audits at EXL Service with a focus on quality, risk, and control effectiveness.</p></div>
+          </article>
+          <article class="about-brief__pillar">
+            <div class="about-brief__icon about-brief__icon--teal"><img src="${assetBase}/1874da7b1d0f6f6f.svg" alt=""></div>
+            <div><h3>Operations &amp; Delivery</h3><p>Designed operational frameworks for ONGC and led project planning for Toshiba Water Solutions.</p></div>
+          </article>
+          <article class="about-brief__pillar">
+            <div class="about-brief__icon"><img src="${assetBase}/151a2cc95929fc7a.svg" alt=""></div>
+            <div><h3>AI-Enabled Transformation</h3><p>Applying AI and business models to drive efficiency, insight, and sustainable impact across organizations.</p></div>
+          </article>
+        </div>
+      </div>`;
+  }
 
   const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
   const desktopNav = document.querySelector("header nav");
