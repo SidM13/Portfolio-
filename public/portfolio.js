@@ -63,6 +63,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const educationGrid = document.querySelector("#education .grid.sm\\:grid-cols-2.gap-4");
   if (educationGrid) {
+    const combinedStanfordCard = [...educationGrid.querySelectorAll("article")].find((card) =>
+      card.querySelector("h3")?.textContent.trim() === "Stanford University"
+    );
+    if (combinedStanfordCard) {
+      combinedStanfordCard.querySelector("div").textContent = "Executive Program";
+      combinedStanfordCard.querySelector("p").textContent = "Digital Media and Social Networks";
+      combinedStanfordCard.querySelector("div:last-child").innerHTML = "<span>Jun 2022 – Aug 2022</span>";
+
+      const stanfordAiPrograms = combinedStanfordCard.parentElement.cloneNode(true);
+      stanfordAiPrograms.querySelector("article > div").textContent = "Executive Education · 3 Courses";
+      stanfordAiPrograms.querySelector("p").innerHTML = "Harnessing AI to Transform Organizations · Build a Better Business Model · AI-Powered Go-to-Market Strategies for Business Growth";
+      stanfordAiPrograms.querySelector("article > div:last-child").innerHTML = "<span>Jun 2025 – Nov 2025</span>";
+      combinedStanfordCard.parentElement.insertAdjacentElement("afterend", stanfordAiPrograms);
+    }
+
     const stanfordPrograms = document.createElement("div");
     stanfordPrograms.innerHTML = `
       <article class="h-full rounded-xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.07] hover:border-brand-teal/40 transition">
