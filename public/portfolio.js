@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const removeLegacyBadge = () => {
+    document.querySelectorAll('#lovable-badge, [id*="lovable-badge"]').forEach((badge) => badge.remove());
+  };
+  removeLegacyBadge();
+  const badgeObserver = new MutationObserver(removeLegacyBadge);
+  badgeObserver.observe(document.body, { childList: true, subtree: true });
+
   const siteBase = window.location.pathname.startsWith("/Portfolio-") ? "/Portfolio-" : "";
+  const assetBase = `${siteBase}/assets`;
   const redesignStyles = document.createElement("link");
   redesignStyles.rel = "stylesheet";
   redesignStyles.href = `${siteBase}/about-redesign.css`;
@@ -12,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const aboutSection = document.querySelector("#about");
   if (aboutSection) {
-    const assetBase = `${siteBase}/assets`;
     const credentials = [
       "Certified Scrum Master (CSM)",
       "Certified Scrum Product Owner (CSPO)",
@@ -24,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     aboutSection.innerHTML = `
       <div class="about-brief__inner">
         <div class="about-brief__eyebrow">About</div>
-        <h2 class="about-brief__title">At the intersection of <span>audit &amp; operations</span><br>and <em>digital transformation</em>.</h2>
+        <h2 class="about-brief__title">At the intersection of <span>audit, operations</span><br> and <em>digital transformation</em>.</h2>
         <div class="about-brief__rule"><span></span></div>
 
         <div class="about-brief__body">
@@ -52,6 +59,43 @@ document.addEventListener("DOMContentLoaded", () => {
           </article>
         </div>
       </div>`;
+  }
+
+  const educationGrid = document.querySelector("#education .grid.sm\\:grid-cols-2.gap-4");
+  if (educationGrid) {
+    const stanfordPrograms = document.createElement("div");
+    stanfordPrograms.innerHTML = `
+      <article class="h-full rounded-xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.07] hover:border-brand-teal/40 transition">
+        <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-brand-teal">Stanford Programs</div>
+        <h3 class="mt-3 font-display font-bold text-lg leading-snug">Stanford University</h3>
+        <p class="mt-1.5 text-sm text-surface/70 leading-relaxed">Building the Future of Finance · Introduction to Python Programming</p>
+        <div class="mt-4 pt-4 border-t border-white/10 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-surface/60">
+          <span>May 2026 – Aug 2026</span>
+        </div>
+      </article>`;
+    educationGrid.appendChild(stanfordPrograms);
+
+    const schoolLogoByName = {
+      "New York Institute of Technology": "nyit.png",
+      "Northeastern University": "northeastern.png",
+      "The NorthCap University": "northcap.png",
+      "Stanford University": "stanford.png",
+      "UC Berkeley": "berkeley.svg",
+    };
+    educationGrid.querySelectorAll("article").forEach((card) => {
+      const schoolName = card.querySelector("h3")?.textContent.trim();
+      const logoFile = schoolLogoByName[schoolName];
+      const label = card.querySelector("div");
+      if (!logoFile || !label) return;
+      label.querySelector("svg")?.remove();
+      const logo = document.createElement("img");
+      logo.src = `${assetBase}/universities/${logoFile}`;
+      logo.alt = `${schoolName} logo`;
+      logo.width = 28;
+      logo.height = 28;
+      logo.style.cssText = "width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;flex:none";
+      label.prepend(logo);
+    });
   }
 
   const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
