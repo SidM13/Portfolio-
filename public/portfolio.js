@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const siteBase = window.location.pathname.startsWith("/Portfolio-") ? "/Portfolio-" : "";
   const assetBase = `${siteBase}/assets`;
+  const headerMark = document.querySelector('header a[href="#home"] > span:first-child');
+  if (headerMark) {
+    headerMark.innerHTML = `<img src="${assetBase}/sm-monogram.png" alt="SM monogram">`;
+    headerMark.style.cssText = "width:40px;height:40px;padding:3px;overflow:hidden;background:#0d2142;border:1px solid rgba(39,196,189,.65);border-radius:9px;display:grid;place-items:center";
+    const headerMarkImage = headerMark.querySelector("img");
+    headerMarkImage.style.cssText = "width:100%;height:100%;object-fit:contain;border-radius:4px";
+  }
   const redesignStyles = document.createElement("link");
   redesignStyles.rel = "stylesheet";
   redesignStyles.href = `${siteBase}/about-redesign.css`;
