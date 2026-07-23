@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
   redesignStyles.rel = "stylesheet";
   redesignStyles.href = `${siteBase}/about-redesign.css`;
   document.head.appendChild(redesignStyles);
+  const educationStyles = document.createElement("link");
+  educationStyles.rel = "stylesheet";
+  educationStyles.href = `${siteBase}/education-redesign.css?v=20260722-1`;
+  document.head.appendChild(educationStyles);
 
   document.querySelectorAll('[style*="opacity:0"]').forEach((element) => {
     element.style.opacity = "1";
@@ -61,70 +65,36 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`;
   }
 
-  const educationGrid = document.querySelector("#education .grid.sm\\:grid-cols-2.gap-4");
-  if (educationGrid) {
-    const combinedStanfordCard = [...educationGrid.querySelectorAll("article")].find((card) =>
-      card.querySelector("h3")?.textContent.trim() === "Stanford University"
-    );
-    if (combinedStanfordCard) {
-      combinedStanfordCard.querySelector("div").textContent = "Executive Program";
-      combinedStanfordCard.querySelector("p").textContent = "Digital Media and Social Networks";
-      combinedStanfordCard.querySelector("div:last-child").innerHTML = "<span>Jun 2022 – Aug 2022</span>";
-
-      const stanfordAiPrograms = combinedStanfordCard.parentElement.cloneNode(true);
-      stanfordAiPrograms.querySelector("article > div").textContent = "Executive Education · 3 Courses";
-      stanfordAiPrograms.querySelector("p").innerHTML = "Harnessing AI to Transform Organizations · Build a Better Business Model · AI-Powered Go-to-Market Strategies for Business Growth";
-      stanfordAiPrograms.querySelector("article > div:last-child").innerHTML = "<span>Jun 2025 – Nov 2025</span>";
-      combinedStanfordCard.parentElement.insertAdjacentElement("afterend", stanfordAiPrograms);
-    }
-
-    const stanfordPrograms = document.createElement("div");
-    stanfordPrograms.innerHTML = `
-      <article class="h-full rounded-xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.07] hover:border-brand-teal/40 transition">
-        <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-brand-teal">Stanford Programs</div>
-        <h3 class="mt-3 font-display font-bold text-lg leading-snug">Stanford University</h3>
-        <p class="mt-1.5 text-sm text-surface/70 leading-relaxed">Building the Future of Finance · Introduction to Python Programming</p>
-        <div class="mt-4 pt-4 border-t border-white/10 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-surface/60">
-          <span>May 2026 – Aug 2026</span>
-        </div>
+  const educationSection = document.querySelector("#education");
+  if (educationSection) {
+    const logo = (file, school) => `<img class="edu-card__logo" src="${assetBase}/universities/${file}" alt="${school} logo">`;
+    const card = ({ file, school, label, title, body, date, context = "", location = "" }) => `
+      <article class="edu-card">
+        <div class="edu-card__top">${logo(file, school)}<span class="edu-card__label">${label}</span></div>
+        <h3>${title}</h3><div class="edu-card__body">${body}</div>
+        ${context ? `<p class="edu-card__context">${context}</p>` : ""}
+        <div class="edu-card__meta"><span>${date}</span>${location ? `<span>${location}</span>` : ""}</div>
       </article>`;
-    educationGrid.appendChild(stanfordPrograms);
-
-    const schoolLogoByName = {
-      "New York Institute of Technology": "nyit.png",
-      "Northeastern University": "northeastern.png",
-      "The NorthCap University": "northcap.png",
-      "Stanford University": "stanford.png",
-      "UC Berkeley": "berkeley.svg",
-    };
-    educationGrid.querySelectorAll("article").forEach((card) => {
-      const schoolName = card.querySelector("h3")?.textContent.trim();
-      const logoFile = schoolLogoByName[schoolName];
-      const label = card.querySelector("div");
-      if (!logoFile || !label) return;
-      label.querySelector("svg")?.remove();
-      const logo = document.createElement("img");
-      logo.src = `${assetBase}/universities/${logoFile}`;
-      logo.alt = `${schoolName} logo`;
-      logo.width = 28;
-      logo.height = 28;
-      logo.style.cssText = "width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;flex:none";
-      label.prepend(logo);
-    });
-  }
-
-  const certificationHeading = [...document.querySelectorAll("#education h3")].find(
-    (heading) => heading.textContent.trim() === "Professional credentials"
-  );
-  const certificationBox = certificationHeading?.closest(".h-full");
-  const certificationList = certificationBox?.querySelector("ul");
-  if (certificationBox && certificationList) {
-    certificationBox.style.height = "fit-content";
-    certificationBox.style.alignSelf = "start";
-    const googleAiCertification = document.createElement("li");
-    googleAiCertification.className = "flex items-start gap-3 text-sm text-surface/80 border-l-2 border-brand-teal/50 pl-3";
-    googleAiCertification.textContent = "Google AI";
-    certificationList.appendChild(googleAiCertification);
+    educationSection.className = "education-section";
+    educationSection.innerHTML = `
+      <div class="education-section__inner">
+        <div class="education-section__header"><div><div class="education-section__eyebrow">Education &amp; Credentials</div><h2>Academic foundation and <span>continuous learning</span>.</h2></div><a class="education-section__resume" href="${siteBase}/resume.pdf">Download Resume</a></div>
+        <section class="edu-group" aria-labelledby="formal-education-title"><h3 id="formal-education-title" class="edu-group__title">Formal Education</h3><div class="edu-grid">
+          ${card({file:"nyit.png",school:"New York Institute of Technology",label:"MBA · In Progress",title:"New York Institute of Technology",body:"Master of Business Administration",date:"Jan 2026 – Present",location:"Vancouver, BC"})}
+          ${card({file:"northeastern.png",school:"Northeastern University",label:"Master’s Degree",title:"Northeastern University",body:"M.S. in Project Management",date:"Sep 2021 – Apr 2023"})}
+          ${card({file:"northcap.png",school:"The NorthCap University",label:"Bachelor’s Degree",title:"The NorthCap University",body:"Bachelor of Business Administration",date:"Jul 2018 – Jun 2021"})}
+        </div></section>
+        <section class="edu-group" aria-labelledby="exchange-title"><h3 id="exchange-title" class="edu-group__title">Student Exchange &amp; Academic Enrichment</h3><div class="edu-grid">
+          ${card({file:"berkeley.svg",school:"UC Berkeley",label:"Student Program",title:"UC Berkeley",body:"Marketing, Leadership &amp; Project Management",context:"During The NorthCap University",date:"Jun – Aug 2019"})}
+          ${card({file:"sjsu.png",school:"San José State University",label:"Student Exchange",title:"San José State University",body:"Operations and Supply Chain Management",context:"During The NorthCap University",date:"Jan 2020 – Feb 2020"})}
+          ${card({file:"stanford.png",school:"Stanford University",label:"Student Program",title:"Stanford University",body:"Digital Media and Social Networks",context:"During Northeastern University",date:"Jun 2022 – Aug 2022"})}
+        </div></section>
+        <section class="edu-group" aria-labelledby="continuous-title"><h3 id="continuous-title" class="edu-group__title">Professional &amp; Continuous Learning · 2023</h3><div class="edu-grid">
+          ${card({file:"stanford.png",school:"Stanford University",label:"Executive Education · 3 Courses",title:"Stanford University",body:"<ul><li>Harnessing AI to Transform Organizations</li><li>Build a Better Business Model</li><li>AI-Powered Go-to-Market Strategies for Business Growth</li></ul>",date:"Jun 2025 – Nov 2025"})}
+          ${card({file:"stanford.png",school:"Stanford University",label:"Stanford Programs",title:"Stanford University",body:"<ul><li>Building the Future of Finance</li><li>Introduction to Python Programming</li></ul>",date:"May 2026 – Aug 2026"})}
+          <article class="edu-card edu-card--credentials"><div class="edu-card__top"><span class="edu-card__label">Professional Credentials</span></div><div class="credential-grid">${["Certified Scrum Master (CSM)","Certified Scrum Product Owner (CSPO)","SAFe Agilist","ASQ Six Sigma","Stanford · AI for Business Models","Google AI"].map((item) => `<span>${item}</span>`).join("")}</div></article>
+        </div></section>
+      </div>`;
   }
 
   const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
