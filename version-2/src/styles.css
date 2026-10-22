@@ -1,0 +1,140 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: #0A0A0A;
+  --foreground: #F5F7FA;
+  --card: #111416;
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --primary: #007BA7;
+  --primary-foreground: #F5F7FA;
+  --secondary: #171B1E;
+  --secondary-foreground: var(--foreground);
+  --muted: #171B1E;
+  --muted-foreground: #9CA3AF;
+  --accent: #19252C;
+  --accent-foreground: var(--foreground);
+  --highlight: #FF2D95;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: #2A3035;
+  --input: var(--border);
+  --ring: var(--highlight);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0; }
+  :focus-visible { outline: 2px solid var(--highlight); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  &.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { opacity: 1; transform: none; }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility link-underline {
+  background-image: linear-gradient(var(--highlight), var(--highlight));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.3s ease;
+  &:hover, &:focus-visible { background-size: 100% 2px; }
+}
+
+.hero-emphasis {
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 8px;
+}
+.identity-monogram { display: grid; width: 40px; height: 40px; flex-shrink: 0; place-items: center; overflow: hidden; border: 1px solid var(--primary); }
+.identity-monogram img { width: 100%; height: 100%; object-fit: contain; }
+.logo-slot { display: grid; flex-shrink: 0; place-items: center; width: 64px; height: 64px; background: var(--foreground); border: 1px solid var(--border); color: var(--background); padding: 6px; }
+.logo-slot img { width: 100%; height: 100%; object-fit: contain; }
+.ecosystem-map { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1; margin: auto; }
+.ecosystem-disc { position: absolute; width: 62%; height: 62%; border-radius: 50%; border: 1px solid var(--primary); background: color-mix(in srgb, var(--primary) 18%, transparent); }
+.ecosystem-disc span { position: absolute; width: 70%; left: 15%; text-align: center; font-weight: 600; font-size: 14px; }
+.ecosystem-finance { top: 2%; left: 1%; }
+.ecosystem-finance span { top: 15%; left: 4%; }
+.ecosystem-operations { top: 2%; right: 1%; }
+.ecosystem-operations span { top: 15%; left: 25%; }
+.ecosystem-strategy { bottom: 2%; left: 19%; border-color: var(--highlight); background: color-mix(in srgb, var(--highlight) 10%, transparent); }
+.ecosystem-strategy span { bottom: 17%; }
+.ecosystem-center { position: absolute; top: 35%; left: 31%; width: 38%; height: 38%; display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--primary); background: var(--background); text-align: center; }
+.ecosystem-center strong { font-size: 14px; line-height: 1.4; }
+.detail-open { display: none; }
+[data-state="closed"] > .accordion-body { display: none; }
+[data-state="open"] > .detail-label .detail-closed { display: none; }
+[data-state="open"] > .detail-label .detail-open { display: inline; }
+.nav-more summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+.ecosystem-inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.ecosystem-node { position: relative; border-top: 2px solid var(--primary); padding: 1.5rem 0; }
+.ecosystem-node::after { content: ""; position: absolute; bottom: -1.5rem; left: 50%; height: 1.5rem; width: 1px; background: var(--primary); }
+.ecosystem-connector { position: relative; display: flex; justify-content: center; padding-top: 2rem; }
+.ecosystem-connector::before { content: ""; position: absolute; top: 1.5rem; left: 16.66%; right: 16.66%; height: 1px; background: var(--primary); }
+.ecosystem-result { width: fit-content; max-width: 100%; margin: 1rem auto 0; border: 1px solid var(--primary); padding: 1.5rem 2rem; text-align: center; background: var(--card); }
+@media (max-width: 639px) {
+  .ecosystem-inputs { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .ecosystem-node { padding: 1.25rem 0; }
+  .ecosystem-node::after, .ecosystem-connector::before { display: none; }
+  .ecosystem-connector { border-top: 1px solid var(--primary); padding-top: 1rem; }
+  .ecosystem-result { padding: 1.5rem 1rem; }
+}

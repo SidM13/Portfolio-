@@ -1,0 +1,13 @@
+# Portfolio refinement — progressive disclosure
+- [x] Content data: NAV split (primary + More), METRICS, OVERVIEW, featured project order, credential kinds (portfolio.ts)
+- [x] Recruiter Overview section after proof metrics; hero role label; new proof tiles
+- [x] Experience: 2–3 bullets visible + accessible "View full experience" disclosure, all bullets retained
+- [x] Projects: featured 3 + "Additional Work" group, all five retained
+- [x] Education: four groups (Degrees / Exchange / Certifications / Continuous Learning), certification vs course labels
+- [x] Skills compact matrix; Alignment "What I Bring" numbered rows; Insights "In Development"
+- [x] Contact: Email Me / LinkedIn primary actions; form as optional email-draft workflow
+- [x] Nav simplification + page-progress indicator; active-section accuracy
+- [x] Favicon from SM monogram; Person JSON-LD; OG image composed + documented
+- [x] Update tests (overview, metrics, disclosure, preserved content); run vitest
+- [x] Source-accuracy check vs resume PDF + sidm13.github.io
+- [x] Playwright QA at 1440px and 375px: disclosures (keyboard+pointer), quick links, nav, mailto, overflow, console
