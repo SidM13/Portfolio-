@@ -126,11 +126,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const personalBrandTitle = [...document.querySelectorAll("h3")].find(
+    (heading) => heading.textContent.trim() === "AI-Enabled Personal Brand",
+  );
+  const fixLoopCard = personalBrandTitle?.closest("article");
+  if (fixLoopCard) {
+    personalBrandTitle.textContent = "FixLoop";
+
+    const summaryParagraphs = fixLoopCard.querySelectorAll(":scope > p");
+    summaryParagraphs[0].textContent = "Repairable products are often discarded because consumers lack trusted guidance and a simple way to compare local repair options.";
+    summaryParagraphs[1].textContent = "Designed and rapidly prototyped an AI-powered marketplace for diagnosis, transparent pricing, shop comparison, and sustainability rewards.";
+
+    const featureTags = fixLoopCard.querySelectorAll(":scope > div:nth-of-type(2) > span");
+    ["AI Diagnosis", "Shop Comparison", "Transparent Pricing", "Sustainability"].forEach((label, index) => {
+      if (featureTags[index]) featureTags[index].textContent = label;
+    });
+
+    const impact = [...fixLoopCard.querySelectorAll("p")].find((paragraph) =>
+      paragraph.previousElementSibling?.textContent.includes("Impact"),
+    );
+    if (impact) impact.textContent = "Delivered a production-ready Vancouver pilot concept that makes repair easier to evaluate before replacement.";
+
+    const capabilityTags = fixLoopCard.querySelectorAll(":scope > div:last-child > span");
+    ["Product Strategy", "Marketplace Design", "Rapid Prototyping"].forEach((label, index) => {
+      if (capabilityTags[index]) capabilityTags[index].textContent = label;
+    });
+  }
+
   const details = [
     ["A high-volume premium audit pipeline spanning the United States and India required improved turnaround without compromising accuracy or regulatory compliance.", "Reduce audit cycle time and improve documentation quality across a multi-geography portfolio.", "Standardized review workflows on proprietary audit platforms, developed Excel models for 941 and P&L reconciliation, and introduced proactive coordination cadences with insureds and agents."],
     ["ONGC's Project Management division required a documented, end-to-end project governance framework spanning planning through closure.", "Codify a reusable operational playbook to standardize project governance across the division.", "Captured leading practices for planning, scheduling, execution, monitoring, control, and closure into a structured framework."],
     ["A new water treatment engagement required clearly defined scope, deliverables, and a unified source of truth for client status reporting.", "Establish a clear project management plan and consolidated reporting cadence.", "Analyzed requirements, defined deliverables, authored the plan, and structured client status reporting."],
-    ["A multi-disciplinary professional background required a recruiter-ready, structured personal brand suitable for consulting and Big 4 audiences.", "Design and deliver a production-grade personal brand site using AI-enabled tooling.", "Used AI tooling to structure messaging, case studies, and ship a production-ready site."],
+    ["Repairable products are often discarded because consumers lack trusted diagnosis, transparent pricing, and a simple way to compare local repair shops.", "Create a repair-before-recycle marketplace that makes repair easier, more transparent, and more rewarding than replacement.", "Defined the positioning and customer journey, then rapidly prototyped an AI-assisted experience for photo-based estimates, shop comparison, booking, sustainability rewards, and partner onboarding."],
     ["AITMC lacked a coordinated digital presence across Facebook, LinkedIn, and Instagram.", "Establish a measurable baseline and improve audience engagement across channels.", "Executed channel-specific strategies and iterated using analytics."],
   ];
 
