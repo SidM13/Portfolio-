@@ -132,6 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const fixLoopCard = personalBrandTitle?.closest("article");
   if (fixLoopCard) {
     personalBrandTitle.textContent = "FixLoop";
+    const categoryLabel = [...fixLoopCard.querySelectorAll("div")].find(
+      (element) => element.textContent.trim() === "Self-initiated",
+    );
+    if (categoryLabel) categoryLabel.textContent = "NYIT";
 
     const summaryParagraphs = fixLoopCard.querySelectorAll(":scope > p");
     summaryParagraphs[0].textContent = "Repairable products are often discarded because consumers lack trusted guidance and a simple way to compare local repair options.";
