@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div></section>
         <section class="edu-group" aria-labelledby="continuous-title"><h3 id="continuous-title" class="edu-group__title">Professional &amp; Continuous Learning</h3><div class="edu-grid">
           ${card({file:"stanford.png",school:"Stanford University",label:"Executive Education · 3 Courses",title:"Stanford University",body:"<ul><li>Harnessing AI to Transform Organizations</li><li>Build a Better Business Model</li><li>AI-Powered Go-to-Market Strategies for Business Growth</li></ul>",date:"Jun 2025 – Nov 2025"})}
-          ${card({file:"stanford.png",school:"Stanford University",label:"Stanford Programs",title:"Stanford University",body:"<ul><li>Building the Future of Finance</li><li>Introduction to Python Programming</li></ul>",date:"May 2026 – Aug 2026"})}
+          ${card({file:"stanford.png",school:"Stanford University",label:"Stanford Programs",title:"Stanford University",body:"<ul><li>Building the Future of Finance</li><li>Introduction to Python Programming</li><li>Building AI Products Through Rapid Prototyping</li></ul>",date:"May 2026 – Dec 2026"})}
           <article class="edu-card edu-card--credentials"><div class="edu-card__top"><span class="edu-card__label">Professional Credentials</span></div><div class="credential-grid">${["Certified Scrum Master (CSM)","Certified Scrum Product Owner (CSPO)","SAFe Agilist","ASQ Six Sigma","Stanford · AI for Business Models","Google AI"].map((item) => `<span>${item}</span>`).join("")}</div></article>
         </div></section>
       </div>`;
